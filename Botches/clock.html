@@ -1,0 +1,158 @@
+<style>
+  *, a {
+    font-family: "Courier New";
+    background-color: #2c2f33;
+    color: #7289da;
+  }
+
+  #clock {
+    font-size: 18em;
+  }
+  .popup {
+    position: absolute;
+    bottom: 0;
+    width: 50%;
+    left: 25%;
+  }
+
+  #settingsPopupContent {
+    display: inline-block;
+    position: relative;
+    left:50%;
+    margin-left: -25%;
+  }
+
+  #saveSettingsRow{
+    text-align: center;
+    text-decortion: underline;
+  }
+</style>
+<body>
+  <div class="container">
+    <div class="center">
+      <center>
+        <div id="clock">
+        </div>
+      </center>
+    </div>
+  </div>
+
+  <div class='popup ' id="settingsPopup" style="display:none;">
+    <span id="settingsPopupContent">
+      <table>
+        <tr>
+          <td>
+            Timezone :
+          </td>
+          <td>
+            <input id="timezone" type="text" /> (<a href="https://www.php.net/manual/en/timezones.php" target="_blank">Link</a>)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Fuzzy :
+          </td>
+          <td>
+            <input id="fuzzy" type="checkbox" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" id="saveSettingsRow">
+            <a href="#" id="saveSettings">
+              Save
+            </a>
+          </td>
+        </tr>
+      </table>
+    </span>
+  </div>
+
+  <div class="popup" style="display:none;">
+    <div id="popupContent">
+    </div>
+  </div>
+
+  <script>
+    var timeZone;
+    var fuzzy;
+    var settingsVisible = false;
+
+    function loadStorage(){
+      timeZone = localStorage.getItem('timezone') || "America/Anchorage";
+      fuzzy = localStorage.getItem('fuzzy') == "true"; //Set as bool
+    }
+
+    function updateClock(repeat = false){
+      let d = new Date();
+      let tijd = d.toLocaleString('it-IT', { timeZone: timeZone });
+
+      var myRegexp = /.*\,\ (\d+)\:(\d+).*/g;
+      var match = myRegexp.exec(tijd);
+      let minutes = match[2];
+      // Set fuzzy clock
+      if(fuzzy) {
+        let offset = minutes % 5;
+        minutes = match[2] - offset;
+      } else {
+        minutes = match[2];
+      }
+      if(minutes.toString().length === 1){
+        minutes = "0" + minutes.toString();
+      }
+      //Generate final string
+      let time = match[1] + ":" + minutes;
+      document.querySelector("#clock").innerHTML = time;
+      if(repeat){
+        window.setTimeout(function(){
+          updateClock(true);
+        }, 30000);
+      }
+    }
+
+    function updateSettings(){
+      let newTimezone = document.querySelector("#timezone").value;
+      let newFuzzy = document.querySelector("#fuzzy").checked;
+      localStorage.setItem('timeZone', newTimezone);
+      localStorage.setItem('fuzzy', newFuzzy);
+      //update local vars
+      loadStorage();
+      //Rerender clock
+      updateClock();
+      hideSettings();
+    }
+
+    function switchSettings(){
+      if(settingsVisible){
+        hideSettings();
+      } else{
+        showSettings();
+      }
+    }
+
+    function showSettings(){
+      settingsVisible = true;
+      document.querySelector("#settingsPopup").style.display = "block";
+    }
+
+    function hideSettings(){
+      settingsVisible = false;
+      document.querySelector("#settingsPopup").style.display = "none";
+    }
+
+    loadStorage();
+    //Set settings
+    document.querySelector("#timezone").value = timeZone;
+    document.querySelector("#fuzzy").checked = fuzzy;
+
+    //Set listeners
+    document.addEventListener("click", () => switchSettings());
+    document.querySelector("#settingsPopup").addEventListener("click", (e) => e.stopPropagation());
+    document.querySelector("#saveSettings").addEventListener("click", (e) => {
+      //Make sure it won't get catched by the document click event
+      e.stopPropagation();
+      updateSettings();
+    });
+
+    updateClock();
+  </script>
+</body>
