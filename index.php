@@ -6,7 +6,7 @@
     </title>
   </head>
   <body>
-    <input id="searchBar" type="search"/>
+    <input id="searchBar" type="search" autofocus />
     <table id="datatable">
       <thead>
         <tr>
