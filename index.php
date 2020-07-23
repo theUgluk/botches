@@ -8,8 +8,8 @@
   <body>
     <ul>
       <?php
-        $homedir = dirname(__FILE__);
-        $files = scandir($homedir . "/Botches");
+        require_once dirname(__FILE__) . "/constants.php";
+        $files = scandir(BOTHCHESPATH);
 
         //Todo: Create file with constants for stuff like homedir, botchdir, tooldir, etc
 
@@ -19,9 +19,9 @@
             $name = $file;
             $description = "";
             //Check for info.json
-            $infoFile = $homedir . "/Botches/" . $file . "/info.json";
+            $infoFile = BOTHCHESPATH . $file . "/info.json";
             if(file_exists($infoFile)){
-              $settings = json_decode(file_get_contents($homedir . "/Botches/" . $file . "/info.json"), true);
+              $settings = json_decode(file_get_contents(BOTHCHESPATH . $file . "/info.json"), true);
               if(is_array($settings)){
                 if(array_key_exists("name", $settings)){
                   $name = $settings['name'];
