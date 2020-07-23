@@ -6,7 +6,7 @@
     </title>
   </head>
   <body>
-    <table>
+    <table id="datatable">
       <thead>
         <Tr>
           <td>
