@@ -49,7 +49,9 @@
   <script type="text/javascript" src="<?=TOOLSWEBPATH?>datatables/datatables.min.js"></script>
   <script>
     $(document).ready(function() {
-      $('#datatable').DataTable();
+      $('#datatable').DataTable({
+        paging: false
+      });
     } );
   </script>
 
