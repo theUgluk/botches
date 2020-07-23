@@ -6,13 +6,21 @@
     </title>
   </head>
   <body>
-    <ul>
+    <table>
+      <thead>
+        <Tr>
+          <td>
+            Naam
+          </td>
+          <td>
+            Description
+          </td>
+        </tr>
+      </thead>
+      <tbody>
       <?php
         require_once dirname(__FILE__) . "/constants.php";
         $files = scandir(BOTHCHESPATH);
-
-        //Todo: Create file with constants for stuff like homedir, botchdir, tooldir, etc
-
         foreach($files as $file){
           //If not a hidden file (starting with '.')
           if(strpos($file, ".") !== 0 && $file !== "tools") {
@@ -31,14 +39,19 @@
                   }
               }
             }
-            echo "<li><a href='/Botches/" . $file . "/'>" . $name . "</a>";
-            if($description !== ""){
-              echo " (" . $description . ")";
-            }
-            echo "</li>";
+            echo "<tr><td><a href='/Botches/" . $file . "/'>" . $name . "</a></td><td>" . $description . "</td></tr>";
           }
         }
       ?>
-    </ul>
+    </tbody>
+  </table>
+  <link rel="stylesheet" type="text/css" href="<?=TOOLSWEBPATH?>datatables/datatables.min.css"/>
+  <script type="text/javascript" src="<?=TOOLSWEBPATH?>datatables/datatables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#datatable').DataTable();
+    } );
+  </script>
+
   </body>
 </html>
