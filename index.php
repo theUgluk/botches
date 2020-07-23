@@ -51,9 +51,9 @@
   <script>
     $(document).ready(function() {
       let table = $('#datatable').DataTable({
-        paging: false
+        paging: false,
+        sDom: "lrtip"
       });
-      console.log(table.settings()[0].sDom);
       $('#searchBar').on( 'keyup', function () {
         table.search($('#searchBar').val()).draw();
       } );
