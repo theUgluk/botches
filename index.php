@@ -1,6 +1,9 @@
 <?php
 $homedir = dirname(__FILE__);
 $files = scandir($homedir . "/Botches");
+
+//Todo: Create file with constants for stuff like homedir, botchdir, tooldir, etc
+
 echo "<ul>";
 foreach($files as $file){
   //If not a hidden file (starting with '.')
