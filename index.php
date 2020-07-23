@@ -6,9 +6,10 @@
     </title>
   </head>
   <body>
+    <input id="searchBar" type="search"/>
     <table id="datatable">
       <thead>
-        <Tr>
+        <tr>
           <td>
             Naam
           </td>
@@ -49,10 +50,14 @@
   <script type="text/javascript" src="<?=TOOLSWEBPATH?>datatables/datatables.min.js"></script>
   <script>
     $(document).ready(function() {
-      $('#datatable').DataTable({
+      let table = $('#datatable').DataTable({
         paging: false
       });
+      $('#searchBar').on( 'keyup', function () {
+        table.search($('#searchBar').val()).draw();
+      } );
     } );
+
   </script>
   <link rel="stylesheet" type="text/css" href="<?=TOOLSCSSWEBPATH?>basicStyle.css"/>
   <link rel="stylesheet" type="text/css" href="style.css" />
