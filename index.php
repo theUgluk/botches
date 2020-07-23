@@ -56,6 +56,7 @@
   </script>
   <link rel="stylesheet" type="text/css" href="<?=TOOLSCSSWEBPATH?>normalize.css"/>
   <link rel="stylesheet" type="text/css" href="<?=TOOLSCSSWEBPATH?>basicStyle.css"/>
+  <link rel="stylesheet" type="text/css" href="style.css" />
 
   </body>
 </html>
