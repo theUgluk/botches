@@ -45,7 +45,7 @@
       ?>
     </tbody>
   </table>
-  <link rel="stylesheet" type="text/css" href="<?=TOOLSWEBPATH?>datatables/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="<?=TOOLSWEBPATH?>datatables/datatables.min.css"/>
   <script type="text/javascript" src="<?=TOOLSWEBPATH?>datatables/datatables.min.js"></script>
   <script>
     $(document).ready(function() {
