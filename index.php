@@ -1,5 +1,6 @@
 <?php
-$files = scandir(dirname(__FILE__) . "/Botches");
+$homedir = dirname(__FILE__);
+$files = scandir($homedir . "/Botches");
 echo "<ul>";
 foreach($files as $file){
   //If not a hidden file (starting with '.')
@@ -7,8 +8,9 @@ foreach($files as $file){
     $name = $file;
     $description = "";
     //Check for info.json
-    if(file_exists("Botches/" . $file . "/info.json")){
-      $settings = json_decode($file . "/info.json", true);
+    $infoFile = $homedir . "/Botches/" . $file . "/info.json";
+    if(file_exists($infoFile)){
+      $settings = json_decode(file_get_contents($homedir . "/Botches/" . $file . "/info.json"), true);
       if(is_array($settings)){
         if(array_key_exists("name", $settings)){
           $name = $settings['name'];
@@ -20,7 +22,7 @@ foreach($files as $file){
     }
     echo "<li><a href='/Botches/" . $file . "/'>" . $name . "</a>";
     if($description !== ""){
-      echo "(" . $description . ")";
+      echo " (" . $description . ")";
     }
     echo "</li>";
   }
