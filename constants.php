@@ -4,4 +4,4 @@ define("HOMEDIR", $dir);
 define("BOTHCHESPATH", $dir . "/Botches/" );
 define("TOOLSPATH", BOTHCHESPATH . "/tools/" );
 define("TOOLSWEBPATH", "/tools/");
-define("TOOLSCSSWEBPATH", "/tools/css/")
+define("TOOLSCSSWEBPATH", "/tools/css/");
