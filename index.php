@@ -7,7 +7,7 @@ foreach($files as $file){
     $name = $file;
     $description = "";
     //Check for info.json
-    if(file_exists($file . "/info.json")){
+    if(file_exists("Botches/" . $file . "/info.json")){
       $settings = json_decode($file . "/info.json", true);
       if(is_array($settings)){
         if(array_key_exists("name", $settings)){
