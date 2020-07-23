@@ -1,4 +1,9 @@
 <?php
 $files = scandir(dirname(__FILE__) . "/Botches");
-var_dump(dirname(__FILE__));
-var_dump($files);
+foreach($files as $file){
+  //If not a hidden file (starting with '.')
+  echo "<ul>";
+  if(strpos($file, ".") !== 0){
+    echo "<li><a href='/Botches/" . $file . "/'>" . $file . "</a></li>";
+  }
+}
