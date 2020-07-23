@@ -53,7 +53,7 @@
       let table = $('#datatable').DataTable({
         paging: false
       });
-      console.log(table);
+      console.log(table.settings()[0].sDom);
       $('#searchBar').on( 'keyup', function () {
         table.search($('#searchBar').val()).draw();
       } );
