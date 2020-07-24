@@ -58,9 +58,11 @@
         table.search($('#searchBar').val()).draw();
       } );
     } );
-    document.querySelector("#searchBar").addEventListener("keydown", key => {
-      console.log(key);
-      // document.querySelector("#datatable tbody tr:first-child a").click();
+    document.querySelector("#searchBar").addEventListener("keydown", event => {
+      console.log(event.key);
+      if(event.key  === "Enter"){
+        document.querySelector("#datatable tbody tr:first-child a").click();
+      }
     })
 
   </script>

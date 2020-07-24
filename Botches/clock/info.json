@@ -1,0 +1,4 @@
+{
+  "name" : "Clock",
+  "description": "A fullscreen clock in which you can enter a timezone and show the time for that timezone"
+}
