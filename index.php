@@ -59,9 +59,9 @@
       } );
     } );
     document.querySelector("#searchBar").addEventListener("keydown", event => {
-      console.log(event.key);
-      if(event.key  === "Enter"){
-        document.querySelector("#datatable tbody tr:first-child a").click();
+      let firstUrl = document.querySelector("#datatable tbody tr:first-child a");
+      if(firstUrl && event.key  === "Enter"){
+        firstUrl.click();
       }
     })
 
