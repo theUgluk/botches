@@ -111,6 +111,7 @@ function calculate(nIn, nUnitIn, nUnitOut) {
  * @Returns: [nNumber, sPrefix]
  */
 function convertToSI(nNumber, nMagnitude) {
+    nMagnitude = nMagnitude * -1;
     //Get mix/max magnitude
     let indexes = Object.keys(siUnits);
     let nMin = indexes[indexes.length - 1];
@@ -127,17 +128,21 @@ function convertToSI(nNumber, nMagnitude) {
     let nCurrDown = nMagnitude;
     let nTestNumberDown;
     for(let i = 1; i < 5; i++){
+        console.debug(i);
         nTestNumberDown = nNumber * Math.pow(10, nCurrDown);
-        if(nTestNumberDown > 0 && indexes.includes(nCurrDown.toString())){
+        if(nTestNumberDown > 10 && nTestNumberDown < 10000 && indexes.includes(nCurrDown.toString())){
+            console.log("as");
             return [nTestNumberDown, siUnits[nCurrDown]]
         }
         nTestNumberUp = nNumber * Math.pow(10, nCurrUp);
-        if(indexes.includes(nCurrUp.toString())){
-            return [nNumber , siUnits[nCurrUp]];
+        if(nTestNumberUp > 10 && nTestNumberUp < 10000 && indexes.includes(nCurrUp.toString())){
+            return [nTestNumberUp , siUnits[nCurrUp]];
         }
         nCurrDown--;
         nCurrUp++;
     }
+    alert("Difference top big");
+    return [nTestNumberDown, siUnits[nMin]];
 }
 
 /*=============================
