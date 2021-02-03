@@ -71,11 +71,13 @@ function init() {
 
 function process() {
     let input = getInputs();
+    console.info("SiUnits: ", siUnits);
     console.info("Input variables: ", input);
     let nNumber = calculate(input.nIn, input.nUnitIn, input.nUnitOut);
+    console.info('nNumber before thousands', nNumber);
     //Get the magnitude and simplify to thousands
     let [nResult, nMagnitude] = convertToThousand(nNumber);
-    console.debug(convertToSI(nResult, nMagnitude));
+    console.info('converdToThousand', nResult, nMagnitude);
     let [nResNumber, sPrefix] = convertToSI(nResult, nMagnitude);
     console.log("Result convertToSI: ", nResNumber, sPrefix);
     let el = document.querySelector("#result");
@@ -96,7 +98,7 @@ function calculate(nIn, nUnitIn, nUnitOut) {
     // let toUnitSelector = document.querySelector("#toUnit");
     let toUnit = nUnitOut;
     // let toUnitName = toUnitSelector[toUnitSelector.selectedIndex].innerHTML;
-
+    console.debug(fromUnit, toUnit);
     //Convert from to meters
     let nNumber = fromNumber;
     // Do conversion
@@ -121,11 +123,15 @@ function convertToSI(nNumber, nMagnitude) {
         return [nMagnitude, siUnits[nMin]];
     }
     let nCurrUp = nMagnitude
+    let nTestNumberUp;
     let nCurrDown = nMagnitude;
+    let nTestNumberDown;
     for(let i = 1; i < 5; i++){
-        if(indexes.includes(nCurrDown.toString())){
-            return [nNumber, siUnits[nCurrDown]]
+        nTestNumberDown = nNumber * Math.pow(10, nCurrDown);
+        if(nTestNumberDown > 0 && indexes.includes(nCurrDown.toString())){
+            return [nTestNumberDown, siUnits[nCurrDown]]
         }
+        nTestNumberUp = nNumber * Math.pow(10, nCurrUp);
         if(indexes.includes(nCurrUp.toString())){
             return [nNumber , siUnits[nCurrUp]];
         }
