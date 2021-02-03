@@ -1,6 +1,3 @@
-//Use meter as base
-let from = null;
-let to = null;
 const systems = {
     'metric': {
         'meter': {
@@ -21,25 +18,25 @@ const systems = {
             value: 118.11,
         },
         'inch': {
-            'value': 39.37
+            'value': 39.37,
         },
         'foot': {
-            'value': 3.28084
+            'value': 3.28084,
         },
         'yard': {
-            'value': 1.09361
+            'value': 1.09361,
         },
         'chain': {
-            'value': 0.0497097
+            'value': 0.0497097,
         },
         'furlong': {
-            'value': 0.0497097
+            'value': 0.0497097,
         },
         'mile': {
             'value': 0.00062137119224,
         },
         'league': {
-            'value': 0.000179986
+            'value': 0.000179986,
         },
     }
 };
@@ -76,23 +73,20 @@ function process() {
     let input = getInputs();
     console.info("Input variables: ", input);
     let nNumber = calculate(input.nIn, input.nUnitIn, input.nUnitOut);
-    console.debug("nNumber: " + convertToThousand(nNumber));
     //Get the magnitude and simplify to thousands
     let [nResult, nMagnitude] = convertToThousand(nNumber);
     console.debug(convertToSI(nResult, nMagnitude));
     let [nResNumber, sPrefix] = convertToSI(nResult, nMagnitude);
     console.log("Result convertToSI: ", nResNumber, sPrefix);
     let el = document.querySelector("#result");
-    nResNumber = nResNumber.toLocaleString("nl-NL", {
+    nResNumber = parseFloat(nResNumber).toLocaleString("nl-NL", {
         maximumFractionDigits: 3
     });
     let sNewUnit = sPrefix + input.sUnitOut;
     el.innerHTML = `${input.nIn} ${input.sUnitIn} converts to ${nResNumber} ${sNewUnit}`;
 }
-/*
- * @Description gets does the conversion between units
- * @Returns [nNumber]
- */
+// @ Does the conversion between units
+// @Returns [nNumber]
 function calculate(nIn, nUnitIn, nUnitOut) {
     //@TODO cleanup inputs
     let fromNumber = nIn;
@@ -111,7 +105,7 @@ function calculate(nIn, nUnitIn, nUnitOut) {
 }
 
 /*
- * @Description fixes number and provides SI prefix
+ * @ Fixes number and provides SI prefix
  * @Returns: [nNumber, sPrefix]
  */
 function convertToSI(nNumber, nMagnitude) {
@@ -151,7 +145,7 @@ function convertToSI(nNumber, nMagnitude) {
 ================================ */
 
 /*
- * @Description Get all input fields, checks them for numerals and return them in 1 object
+ * @ Get all input fields, checks them for numerals and return them in 1 object
  * @Returns {
  *  nIn: number,
  *  sUnitIn: string,
@@ -161,6 +155,7 @@ function convertToSI(nNumber, nMagnitude) {
  * }
  */
 function getInputs() {
+    //@TODO check for filled
     let nIn = document.querySelector("#fromNumber").value;
 
     let elUnitIn = document.querySelector("#fromUnit");
@@ -172,14 +167,13 @@ function getInputs() {
     elUnitOut = elUnitOut[elUnitOut.selectedIndex];
     let sUnitOut = elUnitOut.text;
     let nUnitOut = elUnitOut.value;
-    let oReturn =  {
+    return {
         'nIn': nIn,
         'sUnitIn': sUnitIn,
         'nUnitIn': nUnitIn,
         'sUnitOut': sUnitOut,
         'nUnitOut': nUnitOut
     };
-    return oReturn;
 }
 
 //Flatten object if nessecary
